@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog</title>
+</head>
+<body>
+  <h1>Blog posts</h1>
+<div id='posts'></div>
+
+<script>
+  fetch('/api/posts') // função para fazer a requisição dos posts
+    .then(response => response.json()) // conversão da response para json
+    .then(posts => {
+      // div para receber os posts
+      const postContainer = document.getElementById('posts')
+      
+      posts.forEach(post => {
+        // Criação da tag H1 para receber o titulo do post do blog
+        const titleElement = document.createElement('h2')
+        titleElement.textContent = post.title
+
+        // criação da tag P para o conteúdo do post
+        const contentElement = document.createElement('p')
+
+        contentElement.textContent = post.content
+
+        // adicionar o titulo e o conteudo na div container de id 'posts'
+
+        postContainer.appendChild(titleElement)
+        postContainer.appendChild(contentElement)
+
+      })
+    })
+    .catch(
+      error => console.error('Erro ao carregar os posts:', error) // Exibe no console do navegador o erro, caso ocorra ao fazer a requisição de get nos posts
+    )
+</script>
+</body>
+</html>
