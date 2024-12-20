@@ -5,10 +5,13 @@ from rest_framework import status
 from .models import Post
 from .serializers import PostSerializer
 
-# View para o frontend
+# Página para visualizar os posts
 def index(request):
-    # Renderiza a tela de blog
     return render(request, 'blog/index.html')
+
+# Página para exibir o formulário
+def formulario(request):
+    return render(request, 'blog/formulario.html')
 
 # API View
 class PostListCreateAPIView(APIView):

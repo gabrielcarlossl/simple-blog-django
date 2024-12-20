@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button type='button' id='backButton'>Voltar</button>
+  <h1>Cadastro de Post</h1>
+  <form id="post-form">
+    <label for="title">Título:</label>
+    <input type="text" id="title" name="title" required><br><br>
+
+    <label for="content">Conteúdo:</label>
+    <textarea id="content" name="content" required></textarea><br><br>
+
+    <button type="submit">Cadastrar Post</button>
+  </form>
+
+  <script>
+    const backButton = document.getElementById('backButton')
+
+    backButton.addEventListener('mousedown', (event) => {
+      window.location.pathname = '/'
+    })
+
+
+    const form = document.getElementById('post-form')
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault()
+
+      // Construção de um form data para envio dos dados para requisição
+
+      const formData = new FormData(form)
+      const postData = {
+        title: formData.get('title'),
+        content: formData.get('content')
+      }
+
+      // Requisição para enviar os dados do post
+      fetch('/api/posts/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(postData)
+      })
+      .then(response => response.json())
+      .then(data => {
+        alert('Post criado com sucesso!')
+      })
+    })
+  </script>
+</body>
+</html>
